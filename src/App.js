@@ -1,6 +1,6 @@
 import './App.css';
-import { useSelector, useDispatch, connect } from 'react-redux'
-import { clearData, fetchData, incrementId, decrementId, inputId } from './features/dataSlice'
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { clearData, fetchData, incrementId, decrementId, inputId } from './features/dataSlice';
 import { useEffect } from 'react';
 
 function App(props) {
@@ -13,11 +13,12 @@ function App(props) {
     } else {
       return <p>image here</p>
     }
-  }
+  };
 
+  //call on React's useEffect method to trigger an API call on render
   useEffect(() => {
     dispatch(fetchData())
-  }, [props.objectId, dispatch])
+  }, [props.objectId, dispatch]);
 
 
   return (
@@ -36,10 +37,13 @@ function App(props) {
         {renderImg()}
       </div>
     </div>
-  );
-}
+  )
+};
 
+// map our objectId to props in order to run our useEffect code every time the objectId changes
+const mapStateToProps = (state, ownProps) => ({ 
+  objectId: state.data.objectId 
+});
 
-const mapStateToProps = (state, ownProps) => ({ objectId: state.data.objectId })
-
+// export the Connect-equipped version
 export default connect(mapStateToProps)(App);
